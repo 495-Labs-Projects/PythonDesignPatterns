@@ -1,3 +1,8 @@
+# api.py
+# This is just some imaginary API wrappers for paypal and venmo (two different payment methods)
+# Each of the classes have different methods that may or may not do the same or similar things.
+# Note: Venmo's account_activity is equivalent to the union of Paypal's deposits and withdrawals
+
 class PayPalAPI:
   def __init__(self, account_id):
     # Some Constructor
@@ -34,18 +39,4 @@ class VenmoAPI:
   def make_payment(self, amount):
     # Some payment code
     print("Payment of $" + str(amount) + " has been made.")
-
-
-# Bad Client Code
-
-paymentMethod1 = PayPalAPI(1234)
-paymentMethod1.send_payment(100)
-activity1 = paymentMethod1.deposits()
-activity1.extend(paymentMethod1.withdrawals())
-print(activity1)
-
-paymentMethod2 = VenmoAPI("rahuang")
-paymentMethod2.make_payment(101)
-activity2 = paymentMethod2.account_activity()
-print(activity2)
 

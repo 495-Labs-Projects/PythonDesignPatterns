@@ -17,6 +17,15 @@ from abc import abstractmethod
 # This is one way to fix all the problems that we mentioned before using the builder pattern. With this pattern
 # we will need to create two separate classes, one is for the actual Meal and another called MealBuilder to
 # contain the state while building up the meal. 
+#
+# This whole layout fixes all the problems listed before since now:
+#  - We don't need to know every single value before creating a new instance of this class
+#  - There's an easy way to keep track of the invariants of this class (required fields and optionals)
+#  - The Meal class won't break the rule of being immutable, but the MealBuilder allows clients to make 
+#    modifications before building the final Meal
+#  - The Meal can't be in an inconsistent/incomplete state since the build method checks the invariants
+#    and the MealBuilder will hold any temporary inconsisten/incomplete states
+
 
 # The Meal class in this case will only take in a builder and build up the meal using that object.
 # This class will gaurantee to be a consistent and complete state while still making sure that nothing can 
@@ -91,16 +100,8 @@ class BuilderInterface:
 # Lastly there is the build method which is called one the client is done building up the Meal object and
 # it will return the final Meal object. In the build method it will also check the invariants needed to make
 # sure that the Meal's invariants are met before returning it. 
-# 
-# This whole layout fixes all the problems listed before since now:
-#  - We don't need to know every single value before creating a new instance of this class
-#  - There's an easy way to keep track of the invariants of this class (required fields and optionals)
-#  - The Meal class won't break the rule of being immutable, but the MealBuilder allows clients to make 
-#    modifications before building the final Meal
-#  - The Meal can't be in an inconsistent/incomplete state since the build method checks the invariants
-#    and the MealBuilder will hold any temporary inconsisten/incomplete states
 
-class MealBuilder(Builder):
+class MealBuilder(BuilderInterface):
   def __init__(self, customer_name, order_number):
     self.customer_name = customer_name
     self.order_number = order_number
