@@ -12,12 +12,6 @@ types of pizza so that each location doesn't need to know about these
 but rather just call the appropriate method.
 """
 
-
-"""
-Provide an interface for creating families of related or dependent
-objects without specifying their concrete classes.
-"""
-
 import abc
 
 
