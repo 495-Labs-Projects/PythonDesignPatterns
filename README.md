@@ -7,6 +7,11 @@ Design patterns in vanilla Python.
 #### Builder Pattern
 Found in `/builder`, discusses best practices using Python to model out the food order process/meal building process.
 
+#### Abstract Factory Pattern
+Found in `/abstract_factory`, discusses using abstract factory pattern to create a Pizza Store with different types of Pizza as well as styles varying based on location.
+
+#### Factory Method Pattern
+Found in `/factory_method`, discusses using factory method pattern to create a Pizza Store with two different variations (New York and Chicago style).
 
 ## Structural Patterns
 
