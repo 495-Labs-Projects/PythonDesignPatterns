@@ -27,10 +27,11 @@ class Proxy(Subject):
         self._real_subject = real_subject
 
     def request(self):
+        # Do things before the real subject request
         # ...
         self._real_subject.request()
         # ...
-
+        # Do things after the request
 
 class RealSubject(Subject):
     """
@@ -49,4 +50,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    

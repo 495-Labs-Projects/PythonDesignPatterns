@@ -2,6 +2,14 @@
 Define a family of algorithms, encapsulate each one, and make them
 interchangeable. Strategy lets the algorithm vary independently from
 clients that use it.
+
+This is a great example of programming to an interface, 
+not an implementation.
+
+Clients should prefer the "additional level of indirection" that an interface 
+(or an abstract base class) affords. The interface captures the abstraction 
+the client wants to exercise, and the implementations of that interface are 
+effectively hidden.
 """
 
 import abc
@@ -29,7 +37,7 @@ class Strategy(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def algorithm_interface(self):
-        pass
+        print("Default behavior")
 
 
 class ConcreteStrategyA(Strategy):
@@ -38,7 +46,7 @@ class ConcreteStrategyA(Strategy):
     """
 
     def algorithm_interface(self):
-        pass
+        print("Behavior that prints something")
 
 
 class ConcreteStrategyB(Strategy):
@@ -47,7 +55,7 @@ class ConcreteStrategyB(Strategy):
     """
 
     def algorithm_interface(self):
-        pass
+        print("Behavior that still prints something, but different than what ConcreteStrategyA prints")
 
 
 def main():
