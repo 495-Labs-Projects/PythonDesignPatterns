@@ -1,4 +1,4 @@
-"SHOULD I ALSO EXPLAIN HOOKS????????"
+"Add in hooks as well"
 
 
 class TeaClass1():

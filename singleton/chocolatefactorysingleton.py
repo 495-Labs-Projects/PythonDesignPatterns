@@ -91,18 +91,27 @@ def main():
 """
 The singleton pattern seems like it can be really useful, but in reality the pattern is often abused. Right now it makes sense for the chocolate factory, but if they need to add another boiler we will need to have more than one class and the singleton pattern will take a lot of work to restructure. It may not seem like an issue in this example because our current example is rather trivial and Python simplifies the pattern, however in practice if you implement a singleton pattern and need to change it later there is a lot of rewriting. It's often better to save yourself the hassle and avoid the pattern from the start.
 
-On the other hand, one really good use for the singleton pattern is for logging to debug your code. Print statements can be a pain to comment out or delete each time we transition from debug to production. And if we move back to production we often need to add the same print statements back in again. Instead, we can write a logging class with a variable that determines whether we are in production mode or debug mode. In debug mode we log our errors to the console, however in production mode when our code is run we ignore these log statements. This way we can keep important print statements in our code and toggle one variable instead of toggling all of the print statements. Checkout the example below:
+On the other hand, one really good use for the singleton pattern is for logging to debug your code. Print statements can be a pain to comment out or delete each time we transition from debug to production. And if we move back to production we often need to add the same print statements back in again. Instead, we can write a logging class with a variable that determines whether we are in production mode or debug mode. In debug mode we log our errors to the console, however in production mode when our code is run we ignore these log statements. This way we can keep important print statements in our code and toggle one variable instead of toggling all of the print statements. 
+
+There's one more thing we are forgetting to check. What happens if two threads try to instantiate the class at the same time? We might still accidentally be able to create two classes instead of having just one global. To eliminate this risk we need to lock the create operation across threads as soon as one thread is performing the operation.
+
+Checkout the example below which demonstrates a simple logger and prevent multithreading issues:
 
 """
 
+import threading
+
 class Logger():
     _instance = None
+    __singleton_lock = threading.Lock()
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
-            cls._instance = super(Logger, cls).__new__(
-                                cls, *args, **kwargs)
-            cls.debug = True
+            with cls.__singleton_lock:
+                if not cls._instance:
+                    cls._instance = super(Logger, cls).__new__(
+                                        cls, *args, **kwargs)
+                    cls.debug = True
         return cls._instance
 
     def logPrint(self, message):
