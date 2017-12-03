@@ -94,6 +94,72 @@ class CoffeeClass2(HotBeverageClass):
         print("Adding sugar and milk")
 
 
+"""
+That's all well and good, but what if a customer doesn't want condiments? We can assume by default that the customer wants condiments, but we should at least allow them to opt out. However, the hot beverage class is the abstract class and doesn't deal directly with our customers. Instead, we'll need to allow our subclasses, coffee and tea, to determine this themselves.
+
+We'll do this by adding in a hook method. A hook is defined in our abstract class, but given an empty or default implementation for the subclass to "hook into" the algorithm at various points. 
+
+In this case, we write a default method in our hot beverage class and the coffee and tea subclasses overwride the default method to talk to the customer.
+
+"""
+
+class HotBeverageClass():
+
+    def prepareRecipe(self):
+        self.boilWater()
+        self.brew()
+        self.pourInCup()
+        if self.customerWantsCondiments():
+            self.addCondiments()
+
+    # Our new method, allows the subclass to "hook" in and evaluate a certain part of the algorithm
+    def customerWantsCondiments(self):
+        return True
+
+    # We can delegate these steps for the respective subclasses to define
+    def brew(self):
+        pass
+
+    def addCondiments(self):
+        pass
+
+    # These steps are the same for all hot beverages
+    def boilWater(self):
+        print("Boiling water")
+
+    def pourInCup(self):
+        print("Pouring into cup")
+
+
+class TeaClass3(HotBeverageClass):
+
+    # Here we'll take customer input to determine whether they want lemon in their tea
+    def customerWantsCondiments(self):
+        response = input("Would you like lemon with your tea (y/n)? ")
+        if response.lower() == "y":
+            return True
+        return False
+
+    def brew(self):
+        print("Steeping the tea")
+
+    def addCondiments(self):
+        print("Adding lemon")
+
+
+class CoffeeClass3(HotBeverageClass):
+
+    def customerWantsCondiments(self):
+        response = input("Would you like milk and sugar with your coffee (y/n)? ")
+        if response.lower() == "y":
+            return True
+        return False
+
+    def brew(self):
+        print("Dripping coffee through filter")
+
+    def addCondiments(self):
+        print("Adding sugar and milk")
 
 def main():
     t1 = TeaClass1()
@@ -107,6 +173,15 @@ def main():
     print("\n")
     coffee_class = CoffeeClass2()
     coffee_class.prepareRecipe()
+    print("\n")
+    t3 = TeaClass3()
+    c3 = CoffeeClass3()
+    t3.prepareRecipe()
+    print("\n")
+    c3.prepareRecipe()
+    print("\n")
 
 if __name__ == "__main__":
     main()
+    
+
