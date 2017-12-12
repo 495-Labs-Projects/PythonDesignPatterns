@@ -16,6 +16,11 @@ order_number = 1
 # If a meal is created before the Meal object is complete, then it will throw and error like
 # on line 20.
 
+# Here are some helpful links:
+#   https://jlordiales.me/2012/12/13/the-builder-pattern-in-practice/
+#   https://www.javaworld.com/article/2074938/core-java/too-many-parameters-in-java-methods-part-3-builder-pattern.html
+
+
 meal_builder = MealBuilder(customer_name, order_number)
 # meal = meal_builder.build()
 meal_builder.add_drink(Drink("Coke")).add_drink(Drink("Sprite"))
