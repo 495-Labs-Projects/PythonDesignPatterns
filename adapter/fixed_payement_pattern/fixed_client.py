@@ -27,6 +27,11 @@ from fixed_payment_class import *
 # api is finished, we just need to implement the PayPalAdapter and not have to change any of our client
 # code to tailor to the paypal api.
 
+# Here are some helpful links:
+#   https://code.tutsplus.com/tutorials/design-patterns-the-adapter-pattern--cms-22262
+#   https://gist.github.com/pazdera/1145859
+#   https://www.journaldev.com/1487/adapter-design-pattern-java  
+
 paymentMethod1 = PayPalAdapter(PayPalAPI(1234))
 paymentMethod1.pay(102)
 activity1 = paymentMethod1.activity()
